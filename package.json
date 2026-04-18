@@ -3,7 +3,8 @@
   "displayName": "PromptPacker",
   "description": "Combine files and folders into a single AI-ready prompt",
   "version": "0.1.0",
-  "publisher": "promptpacker",
+  "author": "Mouhcine KHAIRAT",
+  "publisher": "mouhcinekhairat",
   "repository": {
     "type": "git",
     "url": "https://github.com/KhairatMouhcine/PromptPacker"
