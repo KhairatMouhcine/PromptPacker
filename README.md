@@ -16,15 +16,29 @@ Output format:
 <file content>
 ```
 
-## Install
+## Install (From Source)
 
-1. Download the `.vsix` file from the [releases page](https://github.com/KhairatMouhcine/PromptPacker)
-2. In VS Code: `Extensions` → `...` → `Install from VSIX…`
+Currently, the extension is not published to the VS Code Marketplace. You must install it locally from the source code.
 
-Or install from the VS Code Marketplace (once published):
-```
-ext install mouhcinekhairat.promptpacker-vscode
-```
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/KhairatMouhcine/PromptPacker.git
+   cd PromptPacker
+   ```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Build the extension:**
+   ```bash
+   npm run build
+   ```
+4. **Package and Install:**
+   - Install the packaging tool: `npm install -g @vscode/vsce`
+   - Create the `.vsix` package: `vsce package`
+   - In VS Code, go to `Extensions` → `...` → `Install from VSIX…` and select the generated `.vsix` file.
+
+*(Alternatively, press `F5` in VS Code to run it in a development window.)*
 
 ## Usage
 
