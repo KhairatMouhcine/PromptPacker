@@ -1,7 +1,7 @@
 {
   "name": "promptpacker-vscode",
   "displayName": "PromptPacker",
-  "description": "Combine files and folders into a single AI-ready prompt",
+  "description": "Combine files and folders into a single AI-ready prompt. Not on the Marketplace — clone and build from source: https://github.com/KhairatMouhcine/PromptPacker",
   "version": "0.2.0",
   "author": "Mouhcine KHAIRAT",
   "publisher": "mouhcinekhairat",
