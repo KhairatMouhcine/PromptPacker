@@ -55,7 +55,7 @@ export async function handleMessage(
       const ext = isMarkdown ? 'md' : 'txt'
 
       const uri = await vscode.window.showSaveDialog({
-        defaultUri: vscode.Uri.file(`promptpacker-prompt.${ext}`),
+        defaultUri: vscode.Uri.file(`promptpacker-output.${ext}`),
         filters: isMarkdown
           ? { 'Markdown': ['md'] }
           : { 'Text': ['txt'] }

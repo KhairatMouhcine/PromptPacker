@@ -23,7 +23,7 @@ Output format:
 
 Or install from the VS Code Marketplace (once published):
 ```
-ext install promptpacker.promptpacker-vscode
+ext install mouhcinekhairat.promptpacker-vscode
 ```
 
 ## Usage
@@ -41,8 +41,8 @@ The status bar shows the current file count: `$(files) PromptPacker: 3 files`
 ### Export your prompt
 From the PromptPacker panel:
 - **Copy to Clipboard** — copies the plain-text prompt
-- **Download .txt** — saves as `promptpacker-prompt.txt`
-- **Download .md** — saves as `promptpacker-prompt.md` with fenced code blocks
+- **Download .txt** — saves as `promptpacker-output.txt`
+- **Download .md** — saves as `promptpacker-output.md` with fenced code blocks
 
 ### Remove files
 Click the **✕** button next to any file in the panel, or use **Clear All**.
