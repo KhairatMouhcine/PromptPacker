@@ -216,7 +216,10 @@ export function getWebviewContent(): string {
     </div>
   </div>
 
-  <div class="footer-note">Files are kept until you close VS Code</div>
+  <div class="footer-note">
+    Files are kept until you close VS Code<br>
+    Developed by <a href="https://github.com/KhairatMouhcine" style="color: var(--vscode-textLink-foreground); text-decoration: none;">Mouhcine Khairat</a>
+  </div>
 
   <div class="toast" id="toast"></div>
 

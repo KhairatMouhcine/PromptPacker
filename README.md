@@ -64,6 +64,10 @@ Automatically skips: `node_modules`, `.git`, `dist`, `build`, `.next`, `__pycach
 - `.gitignore` rules in uploaded folders are respected
 - Document files (PDF, DOCX, PPTX, XLSX) are processed locally — no data leaves your machine
 
+## Author
+
+**Mouhcine Khairat** - [GitHub](https://github.com/KhairatMouhcine)
+
 ## License
 
 MIT — part of the [PromptPacker](https://github.com/KhairatMouhcine/PromptPacker) project
