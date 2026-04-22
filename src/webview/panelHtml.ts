@@ -1,8 +1,9 @@
-export function getWebviewContent(): string {
+export function getWebviewContent(nonce: string): string {
   return /* html */`<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'nonce-${nonce}';">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PromptPacker</title>
   <style>
@@ -223,7 +224,7 @@ export function getWebviewContent(): string {
 
   <div class="toast" id="toast"></div>
 
-  <script>
+  <script nonce="${nonce}">
     const vscode = acquireVsCodeApi();
 
     let state = vscode.getState() || { files: [], outputSize: 0 };

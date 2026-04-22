@@ -17,7 +17,8 @@ export class GitignoreParser {
         continue
       }
 
-      let pattern = trimmed
+      // Strip null bytes — they collide with the \x00 placeholder used for **
+      let pattern = trimmed.replace(/\x00/g, '')
       let isNegation = false
       let isDirectory = false
       let anchored = false

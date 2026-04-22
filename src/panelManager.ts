@@ -1,7 +1,12 @@
 import * as vscode from 'vscode'
+import { randomBytes } from 'crypto'
 import { getWebviewContent } from './webview/panelHtml'
 import { handleMessage } from './webview/messageHandler'
 import { FileWithContent } from './fileProcessor'
+
+function getNonce(): string {
+  return randomBytes(16).toString('base64')
+}
 
 export class PanelManager {
   private static panel: vscode.WebviewPanel | undefined
@@ -25,7 +30,7 @@ export class PanelManager {
       }
     )
 
-    this.panel.webview.html = getWebviewContent()
+    this.panel.webview.html = getWebviewContent(getNonce())
 
     this.panel.webview.onDidReceiveMessage(
       msg => handleMessage(msg, this.panel!, context),
