@@ -5,11 +5,8 @@ import { FileWithContent } from './fileProcessor'
 
 export class PanelManager {
   private static panel: vscode.WebviewPanel | undefined
-  private static _context: vscode.ExtensionContext | undefined
 
   static getOrCreate(context: vscode.ExtensionContext): vscode.WebviewPanel {
-    this._context = context
-
     if (this.panel) {
       this.panel.reveal(vscode.ViewColumn.Beside)
       return this.panel

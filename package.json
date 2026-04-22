@@ -2,7 +2,7 @@
   "name": "promptpacker-vscode",
   "displayName": "PromptPacker",
   "description": "Combine files and folders into a single AI-ready prompt",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "Mouhcine KHAIRAT",
   "publisher": "mouhcinekhairat",
   "icon": "media/icon.png",

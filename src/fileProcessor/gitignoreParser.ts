@@ -1,5 +1,5 @@
 export class GitignoreParser {
-  private patterns: Array<{ pattern: string; isNegation: boolean; isDirectory: boolean }> = []
+  private patterns: Array<{ pattern: string; isNegation: boolean; isDirectory: boolean; anchored: boolean }> = []
   private basePath: string
 
   constructor(basePath: string) {
@@ -20,6 +20,7 @@ export class GitignoreParser {
       let pattern = trimmed
       let isNegation = false
       let isDirectory = false
+      let anchored = false
 
       // Handle negation patterns (starting with !)
       if (pattern.startsWith('!')) {
@@ -33,50 +34,75 @@ export class GitignoreParser {
         pattern = pattern.slice(0, -1)
       }
 
-      // Escape special regex characters except for gitignore wildcards
+      // Leading / anchors to root; a / in the middle also anchors (e.g. src/build)
+      if (pattern.startsWith('/')) {
+        anchored = true
+        pattern = pattern.substring(1)
+      } else if (pattern.includes('/')) {
+        anchored = true
+      }
+
+      // Escape regex special chars, then convert gitignore wildcards:
+      // ** must be handled before * to avoid double-substitution
+      // * matches within a single path segment (no slash crossing)
+      // ? matches one character but not a slash
       pattern = pattern
         .replace(/[.+^${}()|[\]\\]/g, '\\$&')
-        .replace(/\*/g, '.*')
-        .replace(/\?/g, '.')
+        .replace(/\*\*/g, '\x00')
+        .replace(/\*/g, '[^/]*')
+        .replace(/\?/g, '[^/]')
+        .replace(/\x00/g, '.*')
 
-      this.patterns.push({ pattern, isNegation, isDirectory })
+      this.patterns.push({ pattern, isNegation, isDirectory, anchored })
     }
   }
 
   shouldIgnore(relativePath: string): boolean {
-    // Remove the base path from the relative path to get the path relative to the gitignore
-    const pathFromGitignore = relativePath.startsWith(this.basePath + '/')
-      ? relativePath.substring(this.basePath.length + 1)
-      : relativePath.startsWith(this.basePath) && this.basePath !== ''
-      ? relativePath.substring(this.basePath.length).replace(/^\//, '')
-      : relativePath
+    let pathFromGitignore: string
 
-    if (!pathFromGitignore || pathFromGitignore === relativePath) {
+    if (this.basePath === '' || this.basePath === '.') {
+      // Root .gitignore: path is already relative to it
+      pathFromGitignore = relativePath
+    } else if (relativePath.startsWith(this.basePath + '/')) {
+      pathFromGitignore = relativePath.substring(this.basePath.length + 1)
+    } else {
+      // Path is outside this .gitignore's scope
+      return false
+    }
+
+    if (!pathFromGitignore) {
       return false
     }
 
     let shouldIgnore = false
 
-    for (const { pattern, isNegation, isDirectory } of this.patterns) {
+    for (const { pattern, isNegation, isDirectory, anchored } of this.patterns) {
       let matches = false
 
       try {
-        const regex = new RegExp(`^${pattern}$`)
         const pathParts = pathFromGitignore.split('/')
 
         if (isDirectory) {
-          // For directory patterns, check if any directory in the path matches
-          matches = pathParts.some(part => regex.test(part)) ||
-                   regex.test(pathFromGitignore)
+          if (anchored) {
+            // Anchored dir: only match at the specific rooted path
+            const regex = new RegExp(`^${pattern}(/.*)?$`)
+            matches = regex.test(pathFromGitignore)
+          } else {
+            // Non-anchored dir: match the directory name at any depth
+            const regex = new RegExp(`(^|/)${pattern}(/|$)`)
+            matches = regex.test(pathFromGitignore)
+          }
         } else {
-          // For file patterns, check multiple scenarios
-          matches = regex.test(pathFromGitignore) || // full path
-                   regex.test(pathParts[pathParts.length - 1]) || // filename only
-                   pathParts.some((part, index) => {
-                     // Check if pattern matches from any directory level
-                     const subPath = pathParts.slice(index).join('/')
-                     return regex.test(subPath)
-                   })
+          if (anchored) {
+            const regex = new RegExp(`^${pattern}$`)
+            matches = regex.test(pathFromGitignore)
+          } else {
+            const regex = new RegExp(`^${pattern}$`)
+            // Match full path, filename only, or any path suffix
+            matches = regex.test(pathFromGitignore) ||
+                     regex.test(pathParts[pathParts.length - 1]) ||
+                     pathParts.some((_, index) => regex.test(pathParts.slice(index).join('/')))
+          }
         }
 
         if (matches) {
