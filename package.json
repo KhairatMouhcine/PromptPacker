@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "author": "Mouhcine KHAIRAT",
   "publisher": "mouhcinekhairat",
+  "icon": "media/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/KhairatMouhcine/PromptPacker"
