@@ -66,6 +66,8 @@ Automatically skips: `node_modules`, `.git`, `dist`, `build`, `.next`, `__pycach
 
 ## Author
 
+<img src="https://github.com/KhairatMouhcine.png" width="100" style="border-radius: 50%;">
+
 **Mouhcine Khairat** - [GitHub](https://github.com/KhairatMouhcine)
 
 ## License
