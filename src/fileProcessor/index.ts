@@ -157,6 +157,9 @@ export async function processUris(uris: vscode.Uri[]): Promise<FileWithContent[]
     }
 
     if (stat.isDirectory()) {
+      if (isPathIgnored(path.basename(fsPath), gitignoreParsers)) {
+        continue
+      }
       await walkDirectory(fsPath, rootPath, gitignoreParsers, results)
     } else if (stat.isFile()) {
       if (!isExtensionAllowed(path.basename(fsPath))) {
