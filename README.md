@@ -36,7 +36,7 @@ Currently, the extension is not published to the VS Code Marketplace. You must i
 4. **Package and Install:**
    - Install the packaging tool: `npm install -g @vscode/vsce`
    - Create the `.vsix` package: `vsce package`
-   - In VS Code, go to `Extensions` → `...` → `Install from VSIX…` and select the generated `.vsix` file.
+   - In VS Code's Explorer, right-click the generated file (e.g., `promptpacker-vscode-0.1.0.vsix`) and click on **Install Extension VSIX**.
 
 *(Alternatively, press `F5` in VS Code to run it in a development window.)*
 
