@@ -1,4 +1,4 @@
-# PromptPacker for VS Code
+# <img src="media/icon.png" width="48" align="center"> PromptPacker for VS Code
 
 Combine files and folders into a single AI-ready prompt, directly from your editor.
 
