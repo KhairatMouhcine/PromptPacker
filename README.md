@@ -150,12 +150,22 @@ From the PromptPacker panel:
 
 ---
 
+## Contributors
+
 <div align="center">
 
-<img src="https://avatars.githubusercontent.com/KhairatMouhcine?v=4" width="72" style="border-radius:50%"><br>
+<table>
+<tr>
+  <td align="center">
+    <a href="https://github.com/KhairatMouhcine">
+      <img src="https://avatars.githubusercontent.com/KhairatMouhcine?v=4" width="80" style="border-radius:50%"><br>
+      <sub><b>Mouhcine Khairat</b></sub>
+    </a><br>
+    <sub>Author & Maintainer</sub>
+  </td>
+</tr>
+</table>
 
-**Mouhcine Khairat**
-
-[GitHub](https://github.com/KhairatMouhcine) · MIT License
+MIT License
 
 </div>
